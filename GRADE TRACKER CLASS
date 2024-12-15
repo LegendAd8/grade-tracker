@@ -1,0 +1,59 @@
+import java.util.ArrayList;
+
+public class GradeTracker {
+    private ArrayList<Student> students;
+
+    public GradeTracker() {
+        students = new ArrayList<>();
+    }
+
+    public void addStudent(String name) {
+        students.add(new Student(name));
+    }
+
+    public Student getStudent(String name) {
+        for (Student student : students) {
+            if (student.getName().equalsIgnoreCase(name)) {
+                return student;
+            }
+        }
+        return null;
+    }
+
+    public double getClassAverage() {
+        if (students.isEmpty()) return 0;
+        double totalSum = 0;
+        int totalGrades = 0;
+        for (Student student : students) {
+            totalSum += student.getAverageGrade() * student.getGrades().size();
+            totalGrades += student.getGrades().size();
+        }
+        return totalGrades > 0 ? totalSum / totalGrades : 0;
+    }
+
+    public int getClassHighestGrade() {
+        int highest = Integer.MIN_VALUE;
+        for (Student student : students) {
+            int studentHighest = student.getHighestGrade();
+            if (studentHighest > highest) {
+                highest = studentHighest;
+            }
+        }
+        return highest;
+    }
+
+    public int getClassLowestGrade() {
+        int lowest = Integer.MAX_VALUE;
+        for (Student student : students) {
+            int studentLowest = student.getLowestGrade();
+            if (studentLowest < lowest) {
+                lowest = studentLowest;
+            }
+        }
+        return lowest;
+    }
+
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
+}
